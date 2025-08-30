@@ -20,12 +20,23 @@ enum QuestionType {
   CHECKBOX
 }
 
+model Quiz {
+  id        String     @id @default(uuid())
+  title     String
+  questions Question[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("quizzes")
+}
+
 model Question {
-  id   String       @id @default(uuid())
-  type QuestionType
+  id           String        @id @default(uuid())
+  type         QuestionType
+  question     String
   alternatives Alternative[]
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  quiz         Quiz          @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  quizId       String
 
   @@map("questions")
 }
@@ -34,10 +45,8 @@ model Alternative {
   id         String   @id @default(uuid())
   text       String
   isCorrect  Boolean  @default(false)
-  question   Question @relation(fields: [questionId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
 
   @@map("alternatives")
 }
