@@ -81,8 +81,8 @@ export class QuizzesService {
       const { limit, offset } = paginationDto ?? { limit: 10, offset: 0 };
 
       const quizzes = await this.prisma.quiz.findMany({
-        take: +limit,
-        skip: +offset,
+        take: limit,
+        skip: offset,
         orderBy: {
           createdAt: 'desc',
         },
