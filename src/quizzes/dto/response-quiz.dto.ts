@@ -16,6 +16,7 @@ export class ResponseQuizDto {
 }
 
 export class ResponseFindAllQuizDto {
+  id: string;
   title: string;
   totalQuestions: number;
 }

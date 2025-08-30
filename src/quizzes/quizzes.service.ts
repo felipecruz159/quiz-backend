@@ -87,12 +87,14 @@ export class QuizzesService {
           createdAt: 'desc',
         },
         select: {
+          id: true,
           title: true,
           _count: { select: { questions: true } },
         },
       });
 
       return quizzes.map((quiz) => ({
+        id: quiz.id,
         title: quiz.title,
         totalQuestions: quiz._count.questions,
       }));
